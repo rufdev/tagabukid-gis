@@ -1,0 +1,78 @@
+
+<html>
+  <head>
+    <title>Localized OpenStreetMap</title>
+    <link rel="stylesheet" href="http://10.30.0.85:8090/geoserver/openlayers3/ol.css" type="text/css">
+    <script src="http://10.30.0.85:8090/geoserver/openlayers3/ol.js"></script>
+  </head>
+  <body>
+  
+    <div id="map" class="map"></div>
+    <script>
+      var wmslayer = new ol.layer.Image({
+          source: new ol.source.ImageWMS({
+            url: 'http://10.30.0.85:8090/geoserver/bukid/wms',
+            params: {
+                LAYERS: 'bukid:BrgyBdry',
+                CQL_FILTER:"INTERSECTS(the_geom, querySingle('bukid:BrgyBdry','the_geom','testPIN=''059-12-011-08-099'''))"
+            },
+            serverType: 'geoserver'
+          })
+        });
+      var fil = "INTERSECTS(the_geom, querySingle('bukid:BrgyBdry','the_geom','testPIN=''059-12-011-08-099'''))";
+      var tile = new ol.layer.Tile({
+          source: new ol.source.MapQuest({layer: 'sat'})
+        });
+      var vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            format: new ol.format.GeoJSON(),
+          
+            url: 'http://10.30.0.85:8090/geoserver/bukid/wfs?service=WFS&' +
+                  'version=1.0.0&request=GetFeature&typeName=bukid:BrgyBdry&' +
+                  'outputFormat=application/json&srsname=EPSG:3857&' +
+                  'CQL_FILTER='+ fil,
+            strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+              maxZoom: 19
+            }))
+          }),
+          style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'rgba(0, 0, 255, 1.0)',
+              width: 2
+            })
+          })
+        });
+      
+      //var projection = new ol.proj.Projection({
+      //    code: 'EPSG:3857',
+      //    units: 'm',
+      //});
+      var map = new ol.Map({
+        layers: [vector],
+        target: 'map',
+        //view: new ol.View({
+        //  center: [13910469.0295, 903791.4224],
+          //projection:projection,
+        //  maxZoom: 19,
+        //  zoom: 9
+        //})
+         view: new ol.View({
+                center: [0, 0],
+                //center: ol.proj.transform([13910469.0295, 903791.4224], 'EPSG:3857','EPSG:4326'),
+                zoom: 9
+            })
+      });
+        vector.getSource().on("change", function(evt) {
+            extent = vector.getSource().getExtent();
+            map.getView().fit(extent, map.getSize());
+        });
+       //var extent = vector.getSource().getExtent();
+       //alert(extent);
+       //map.getView().fitExtent(extent, map.getSize());
+       //if(vector.array_.length){
+       //     var extent = vector.array_[0].getGeometry().getExtent();
+       //     map.getView().fitExtent(extent,map.getSize());
+       // }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<workunit>
+
+  <invokers>
+    <invoker type="home.action" action="initPreview" caption="GeoServer" />
+  </invokers> 
+  <code class="gisintegration.GeoServerController" />
+  <pages>
+    <page template="gisintegration.Quickstart6Page"/>
+  </pages>
+</workunit>

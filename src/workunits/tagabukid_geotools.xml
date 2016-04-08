@@ -1,0 +1,38 @@
+<workunit>
+
+  <invokers>
+    <invoker type="home.action" caption="GeoTools" />
+  </invokers> 
+
+  <code>
+  <![CDATA[
+    import com.rameses.rcp.common.*;
+    import com.rameses.rcp.annotations.*;
+    import com.rameses.osiris2.client.*;
+    import com.rameses.osiris2.common.*;
+    import com.rameses.osiris2.reports.*;
+    import gisintegration.*;
+    
+    class GeoToolsDemo { 
+    
+        @Script("Template")
+        def template;
+            
+        @Binding
+        def binding;
+            
+        def htmlModel;
+        //void initPreview(){
+            //htmlModel = "http://localhost:8090/geoserver/wms/reflect?format=application/openlayers&layers=test:pagudpudnew&cql_filter=INTERSECTS(the_geom,%20querySingle(%27test:pagudpudnew%27,%27the_geom%27,%27fullpin=%27%27059-12-005-01-041%27%27%27))";
+            //htmlModel = template.render( "html/sampleol", [] )
+        //}
+        //def getHtmlModel() {
+        //      return "http://localhost:8090/geoserver/wms/reflect?format=image/jpeg&layers=test:pagudpudnew&cql_filter=INTERSECTS(the_geom,%20querySingle(%27test:pagudpudnew%27,%27the_geom%27,%27fullpin=%27%27059-12-005-01-041%27%27%27))";
+        //}
+    } 
+  ]]>
+  </code>  
+  <pages>
+    <page template="gisintegration.TagaBukidWMS"/>
+  </pages>
+</workunit>

@@ -1,0 +1,12 @@
+<workunit>
+
+  <invokers>
+    <invoker type="faaslist:formActions" action="initPreview" caption="View Map" index="10" visibleWhen="#{selectedEntity != null}" depends="listHandler.selectedEntity"/>
+    <invoker type="faa:formActions" action="initPreview" caption="View Map" index="10" visibleWhen="#{mode=='read'}"/>
+  </invokers> 
+
+    <code class="gisintegration.GeoServerController" /> 
+  <pages>
+    <page template="gisintegration.Quickstart6Page"/>
+  </pages>
+</workunit>

@@ -1,0 +1,30 @@
+<workunit>
+
+  <invokers>
+    <invoker type="home.action" caption="GIS Demo" />
+  </invokers> 
+
+  <code>
+  <![CDATA[
+    import com.rameses.rcp.common.*;
+    import com.rameses.osiris2.client.*
+    import com.rameses.osiris2.common.*
+  
+    class GISDemo { 
+
+        def entity = [:]
+
+        void popup(){
+          MsgBox.alert(entity.firstname)
+        }
+        void viewmap(){
+            entity.map = "<h1>GIS THINGY USING <a href='http://geoserver.org/'>GeoServer</a></h1></br><img src='http://192.168.50.2:8031/geoserver/wms/reflect?format=image/jpeg&layers=bukidnon:Buk_mun_bdry&cql_filter=INTERSECTS(the_geom,%20querySingle(%27bukidnon:Buk_mun_bdry%27,%20%27the_geom%27,%27mun_id=%20%27%27"+entity.mun_id+"%27%27%27))' />"
+        }
+
+    } 
+  ]]>
+  </code>  
+  <pages>
+    <page template="gisintegration.GISDemoPage"/>
+  </pages>
+</workunit>
